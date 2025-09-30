@@ -5,12 +5,10 @@ import ru.practicum.explore.server.model.EndpointHitEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
 public interface StatsRepository extends JpaRepository<EndpointHitEntity, Long> {
 
     @Query("SELECT new ru.practicum.explore.dto.ViewStatsDto(h.app, h.uri, COUNT(h.ip)) " +
@@ -49,4 +47,3 @@ public interface StatsRepository extends JpaRepository<EndpointHitEntity, Long> 
     List<ViewStatsDto> getUniqueStatsAllUris(@Param("start") LocalDateTime start,
                                              @Param("end") LocalDateTime end);
 }
-

@@ -79,7 +79,7 @@ public class StatsClient {
     }
 
     public Map<String, Long> getUriHits(LocalDateTime start, LocalDateTime end, List<String> uris) {
-        List<ViewStatsDto> stats = getStats(start, end, uris, false);
+        List<ViewStatsDto> stats = getStats(start, end, uris, true);
         return stats.stream()
                 .collect(Collectors.toMap(
                         ViewStatsDto::getUri,

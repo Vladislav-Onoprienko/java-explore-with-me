@@ -70,8 +70,6 @@ services:
      depends_on:
        ewm-db:
          condition: service_healthy
-       stats-server:
-         condition: service_healthy
 
 volumes:
   stats_db_data:

@@ -29,13 +29,7 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      stats-db:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - stats-db
 
   ewm-db:
      image: postgres:16.1
@@ -68,8 +62,8 @@ services:
      ports:
        - "8080:8080"
      depends_on:
-       ewm-db:
-         condition: service_healthy
+       - ewm-db
+       - stats-server
 
 volumes:
   stats_db_data:

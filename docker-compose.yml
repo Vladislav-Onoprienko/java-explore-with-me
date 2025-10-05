@@ -31,6 +31,11 @@ services:
     depends_on:
       stats-db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   ewm-db:
      image: postgres:16.1
@@ -43,6 +48,11 @@ services:
        - "5434:5432"
      volumes:
        - ewm_db_data:/var/lib/postgresql/data
+     healthcheck:
+       test: ["CMD-SHELL", "pg_isready -U ewm_user -d ewm"]
+       interval: 10s
+       timeout: 5s
+       retries: 5
 
   ewm-service:
      build:

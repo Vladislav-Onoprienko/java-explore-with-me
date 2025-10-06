@@ -62,3 +62,17 @@ CREATE TABLE IF NOT EXISTS compilation_events (
     CONSTRAINT fk_ce_compilation FOREIGN KEY (compilation_id) REFERENCES compilations(id) ON DELETE CASCADE,
     CONSTRAINT fk_ce_event FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_events_category_id ON events(category_id);
+CREATE INDEX idx_events_initiator_id ON events(initiator_id);
+CREATE INDEX idx_events_event_date ON events(event_date);
+CREATE INDEX idx_events_state ON events(state);
+CREATE INDEX idx_events_published_on ON events(published_on);
+
+CREATE INDEX idx_requests_event_id ON participation_requests(event_id);
+CREATE INDEX idx_requests_requester_id ON participation_requests(requester_id);
+CREATE INDEX idx_requests_status ON participation_requests(status);
+CREATE INDEX idx_requests_created ON participation_requests(created);
+
+CREATE INDEX idx_compilation_events_event_id ON compilation_events(event_id);
+CREATE INDEX idx_users_email ON users(email);

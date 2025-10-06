@@ -44,12 +44,5 @@ public class StatsErrorHandler {
         log.warn("Ошибка валидации параметров: {}", errorMessage);
         return ErrorResponse.builder().error(errorMessage).build();
     }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleError(final Exception e) {
-        log.error("Внутренняя ошибка сервера: {}", e.getMessage(), e);
-        return ErrorResponse.builder().error("Внутренняя ошибка сервера").build();
-    }
 }
 

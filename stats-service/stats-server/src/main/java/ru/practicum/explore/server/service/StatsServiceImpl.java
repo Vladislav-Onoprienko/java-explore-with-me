@@ -48,7 +48,7 @@ public class StatsServiceImpl implements StatsService {
             throw new DateValidationException("Даты начала и конца периода не могут быть null");
         }
 
-        if (start.isAfter(end)) {
+        if (start.isAfter(end) || start.isEqual(end)) {
             throw new DateValidationException(
                     String.format("Некорректный временной период. Начало: %s, Конец: %s", start, end)
             );

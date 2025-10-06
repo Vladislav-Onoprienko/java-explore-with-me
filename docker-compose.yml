@@ -42,11 +42,6 @@ services:
        - "5434:5432"
      volumes:
        - ewm_db_data:/var/lib/postgresql/data
-     healthcheck:
-       test: ["CMD-SHELL", "pg_isready -U ewm_user -d ewm"]
-       interval: 10s
-       timeout: 5s
-       retries: 5
 
   ewm-service:
      build:

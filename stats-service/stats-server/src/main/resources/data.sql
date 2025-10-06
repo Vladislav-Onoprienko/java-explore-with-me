@@ -1,0 +1,3 @@
+DELETE FROM hits;
+
+ALTER SEQUENCE hits_id_seq RESTART WITH 1;

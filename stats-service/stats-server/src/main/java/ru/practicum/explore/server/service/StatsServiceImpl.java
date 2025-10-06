@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explore.dto.EndpointHitDto;
 import ru.practicum.explore.dto.ViewStatsDto;
+import ru.practicum.explore.server.exception.DateValidationException;
 import ru.practicum.explore.server.mapper.StatsMapper;
 import ru.practicum.explore.server.model.EndpointHitEntity;
 import ru.practicum.explore.server.repository.StatsRepository;
@@ -29,6 +30,8 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end,
                                        List<String> uris, Boolean unique) {
+        validateDates(start, end);
+
         if (Boolean.TRUE.equals(unique)) {
             return (uris == null || uris.isEmpty())
                     ? statsRepository.getUniqueStatsAllUris(start, end)
@@ -39,4 +42,17 @@ public class StatsServiceImpl implements StatsService {
                     : statsRepository.getStatsWithUris(start, end, uris);
         }
     }
+
+    private void validateDates(LocalDateTime start, LocalDateTime end) {
+        if (start == null || end == null) {
+            throw new DateValidationException("Даты начала и конца периода не могут быть null");
+        }
+
+        if (start.isAfter(end) || start.isEqual(end)) {
+            throw new DateValidationException(
+                    String.format("Некорректный временной период. Начало: %s, Конец: %s", start, end)
+            );
+        }
+    }
+
 }

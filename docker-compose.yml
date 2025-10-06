@@ -8,13 +8,6 @@ services:
       POSTGRES_PASSWORD: stats_password
     ports:
       - "5433:5432"
-    volumes:
-      - stats_db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U stats_user -d stats"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   stats-server:
     build:
@@ -40,8 +33,6 @@ services:
        POSTGRES_PASSWORD: ewm_password
      ports:
        - "5434:5432"
-     volumes:
-       - ewm_db_data:/var/lib/postgresql/data
 
   ewm-service:
      build:
@@ -59,7 +50,3 @@ services:
      depends_on:
        - ewm-db
        - stats-server
-
-volumes:
-  stats_db_data:
-  ewm_db_data:

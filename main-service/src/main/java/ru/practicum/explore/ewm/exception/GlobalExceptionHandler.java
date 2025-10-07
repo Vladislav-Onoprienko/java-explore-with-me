@@ -25,6 +25,50 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleUserNotFound(UserNotFoundException e) {
+        log.error("User not found: {}", e.getMessage());
+        return new ApiError(
+                "User not found",
+                "The required object was not found.",
+                "NOT_FOUND"
+        );
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleEventNotFound(EventNotFoundException e) {
+        log.error("Event not found: {}", e.getMessage());
+        return new ApiError(
+                "Event not found",
+                "The required object was not found.",
+                "NOT_FOUND"
+        );
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleCommentNotFound(CommentNotFoundException e) {
+        log.error("Comment not found: {}", e.getMessage());
+        return new ApiError(
+                "Comment not found",
+                "The required object was not found.",
+                "NOT_FOUND"
+        );
+    }
+
+    @ExceptionHandler(CommentAccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiError handleCommentAccessDenied(CommentAccessDeniedException e) {
+        log.error("Comment access denied: {}", e.getMessage());
+        return new ApiError(
+                "Access to comment denied",
+                "For the requested operation the conditions are not met.",
+                "FORBIDDEN"
+        );
+    }
+
     @ExceptionHandler({ConflictException.class, DataIntegrityViolationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleConflict(Exception e) {

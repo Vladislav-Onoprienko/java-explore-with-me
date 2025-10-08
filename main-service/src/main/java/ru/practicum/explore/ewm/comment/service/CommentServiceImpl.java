@@ -118,8 +118,8 @@ public class CommentServiceImpl implements CommentService {
 
         List<Comment> comments = commentRepository.findByEventIdAndStatusWithUserAndEvent(
                 eventId, CommentStatus.PUBLISHED, pageable);
-        return comments.stream().
-                map(commentMapper::toDto)
+        return comments.stream()
+                .map(commentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
